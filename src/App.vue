@@ -1,28 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view />
+    <!-- <mu-bottom-nav id="footer" :value="bottomNav">
+      <mu-bottom-nav-item title="Recents" icon=":iconfont iconrili" />
+      <mu-bottom-nav-item title="Favorites" icon=":iconfont iconrenyuan1" />
+      <mu-bottom-nav-item title="Nearby" icon=":iconfont iconCar" />
+    </mu-bottom-nav> -->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      bottomNav: '/home'
+    }
+  },
+  mounted() {
+    const link = document.createElement('link')
+    link.type = 'text/css'
+    link.rel = 'stylesheet'
+    link.href = 'https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css'
+    document.head.appendChild(link)
   }
 }
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html,body,#app{
+  height: 100%;
+  background-color: #f8f9f9;
 }
+
 </style>
