@@ -11,24 +11,39 @@
             <div class="ph-row mgleft10 mgtop10">
               <div class="ph-col-4">
                 <van-icon v-if="index===0" color="#1296db" name="che-s" />
-                <span :style="index==0?'margin-left:15px;font-size:16px;font-weight:800':'font-size:16px;font-weight:800'">张三</span>
-                <van-icon color="#1296db" name="nan-s" />
-                <van-icon color="#ff7d97" name="nv-s" />
+                <span :style="index==0?'margin-left:15px;font-size:16px;font-weight:800':'font-size:16px;font-weight:800'">{{ item.Name }}</span>
+                <van-icon v-if="item.Gender==='1'" color="#1296db" name="nan-s" />
+                <van-icon v-if="item.Gender==='0'" color="#ff7d97" name="nv-s" />
               </div>
               <div class="ph-col-8 empty" />
             </div>
             <van-divider dashed />
-            <div class="ph-row pdleft10">
+            <div v-if="from !=='sub'" class="ph-row pdleft10">
               <div class="ph-col-6  row-item text-left text-left-color">访客单位</div>
-              <div class="ph-col-6 row-item text-right">上海孚鼎信息技术有限公司</div>
+              <div class="ph-col-6 row-item text-right">{{ item.Company }}</div>
             </div>
-            <div class="ph-row pdleft10">
+            <div v-if="from !=='sub'" class="ph-row pdleft10">
               <div class="ph-col-6 row-item text-left text-left-color">联系电话</div>
-              <div class="ph-col-6 row-item text-right">130111111</div>
+              <div class="ph-col-6 row-item text-right">{{ item.Mobile }}</div>
             </div>
-            <div class="ph-row pdleft10">
+            <div v-if="from !=='sub'" class="ph-row pdleft10">
               <div class="ph-col-6 row-item text-left text-left-color">证件号</div>
-              <div class="ph-col-6 row-item text-right">3101010199011201120</div>
+              <div class="ph-col-6 row-item text-right">{{ item.IDNumber }}</div>
+            </div>
+            <div v-if="from ==='sub'" class="ph-row pdleft10">
+              <div class="ph-col-2 row-item text-left text-left-color">访客单位</div>
+              <div class="ph-col-8 row-item text-left" style="padding-left:20px">{{ item.Company }}</div>
+              <div class="ph-col-2 row-item text-right" @click="del(index)"><van-icon name="shanchu" /></div>
+            </div>
+            <div v-if="from ==='sub'" class="ph-row pdleft10">
+              <div class="ph-col-2 row-item text-left text-left-color">联系电话</div>
+              <div class="ph-col-8 row-item text-left" style="padding-left:20px">{{ item.Mobile }}</div>
+              <div class="ph-col-2 empty" />
+            </div>
+            <div v-if="from ==='sub'" class="ph-row pdleft10">
+              <div class="ph-col-2 row-item text-left text-left-color">证件号</div>
+              <div class="ph-col-8 row-item text-left" style="padding-left:20px">{{ item.IDNumber }}</div>
+              <div class="ph-col-2 empty" />
             </div>
           </div>
         </div>
@@ -46,6 +61,12 @@ export default {
       default() {
         return ['aaa', 'bbb']
       }
+    },
+    from: {
+      type: String,
+      default() {
+        return ''
+      }
     }
   },
   data() {
@@ -56,6 +77,9 @@ export default {
   methods: {
     to() {
       this.$router.path('/book')
+    },
+    del(index) {
+      this.persons.splice(index, 1)
     }
   }
 }
@@ -77,6 +101,7 @@ export default {
 }
 .ph-item::before{
   background: rgba(0,0,0,0);
+  display: none;
 }
 .pdleft10{
   padding-left: 10px;
@@ -99,6 +124,9 @@ export default {
 .ph-row .row-item{
   margin-top: 10px;
   font-size: 12px;
+}
+.text-center{
+  text-align: center;
 }
 .text-left{
   text-align: left;

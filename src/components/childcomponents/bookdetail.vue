@@ -9,47 +9,43 @@
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6  row-item text-left text-left-color">预约日期</div>
-            <div class="ph-col-6 row-item text-right">2020-02-29</div>
+            <div class="ph-col-6 row-item text-right">{{ book.AppointmentDate }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">预计到达时间</div>
-            <div class="ph-col-6 row-item text-right">09:00</div>
+            <div class="ph-col-6 row-item text-right">{{ book.ArriveTime }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">预计离厂时间</div>
-            <div class="ph-col-6 row-item text-right">17:00</div>
+            <div class="ph-col-6 row-item text-right">{{ book.LeaveTime }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">接待人姓名</div>
-            <div class="ph-col-6 row-item text-right">孙小平</div>
+            <div class="ph-col-6 row-item text-right">{{ book.ReceiverName }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">接待人邮箱</div>
-            <div class="ph-col-6 row-item text-right">342882403@qq.com</div>
+            <div class="ph-col-6 row-item text-right">{{ book.ReceiverEmail }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">申请人邮箱</div>
-            <div class="ph-col-6 row-item text-right">342882403@qq.com</div>
-          </div>
-          <div class="ph-row pdleft10">
-            <div class="ph-col-6 row-item text-left text-left-color">接待人姓名</div>
-            <div class="ph-col-6 row-item text-right">孙小平</div>
+            <div class="ph-col-6 row-item text-right">{{ book.ApplicantEmail }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">访问区域</div>
-            <div class="ph-col-6 row-item text-right">漕河泾工厂 培训楼</div>
+            <div class="ph-col-6 row-item text-right">{{ book.Area }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">来访事由</div>
-            <div class="ph-col-6 row-item text-right">开会</div>
+            <div class="ph-col-6 row-item text-right">{{ book.Reason }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">是否办理化工区通行证</div>
-            <div class="ph-col-6 row-item text-right">需要</div>
+            <div class="ph-col-6 row-item text-right">{{ book.CIAPass }}</div>
           </div>
           <div class="ph-row pdleft10">
             <div class="ph-col-6 row-item text-left text-left-color">备注</div>
-            <div class="ph-col-6 row-item text-right">备注111111</div>
+            <div class="ph-col-6 row-item text-right">{{ book.Remark }}</div>
           </div>
         </div>
       </div>

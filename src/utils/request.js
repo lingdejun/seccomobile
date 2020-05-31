@@ -19,7 +19,7 @@ service.interceptors.request.use(
     //   // please modify it according to the actual situation
     //   config.headers['X-Token'] = getToken()
     // }
-    config.headers['LoginId'] = '123'
+    config.headers['LoginId'] = '3c33a233-b5f4-4e9a-9b91-ce294a2a4d94'
     config.headers['Content-Type'] = 'application/json'
     return config
   },
@@ -48,12 +48,12 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (res.Result !== 1) {
       Message({
-        message: res.Msg || 'Error',
+        message: res.Message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
 
-      return Promise.reject(new Error(res.Msg || 'Error'))
+      return Promise.reject(new Error(res.Message || 'Error'))
     } else {
       return res
     }

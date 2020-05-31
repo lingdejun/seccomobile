@@ -1,0 +1,107 @@
+{
+  "id": "1851923",
+  "name": "seco vant",
+  "font_family": "van-icon",
+  "css_prefix_text": "van-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6815328",
+      "name": "delete",
+      "font_class": "shanchu",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "3901713",
+      "name": "感叹号",
+      "font_class": "fail",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "14459976",
+      "name": "renyuan",
+      "font_class": "renyuan",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "9358793",
+      "name": "success",
+      "font_class": "success",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "6248657",
+      "name": "时间",
+      "font_class": "shijian",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "13779545",
+      "name": "人员",
+      "font_class": "renyuan1-s",
+      "unicode": "e717",
+      "unicode_decimal": 59159
+    },
+    {
+      "icon_id": "7337492",
+      "name": "日历",
+      "font_class": "rili-s",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "6522022",
+      "name": "车",
+      "font_class": "che-s",
+      "unicode": "e787",
+      "unicode_decimal": 59271
+    },
+    {
+      "icon_id": "7762948",
+      "name": "女",
+      "font_class": "nv-s",
+      "unicode": "e7a0",
+      "unicode_decimal": 59296
+    },
+    {
+      "icon_id": "10521254",
+      "name": "男",
+      "font_class": "nan-s",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "11690871",
+      "name": "搜索--1",
+      "font_class": "search-s",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1449029",
+      "name": "left",
+      "font_class": "arrow-left2",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "7397793",
+      "name": "left",
+      "font_class": "arrow-left",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "848275",
+      "name": "勾",
+      "font_class": "checked",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    }
+  ]
+}

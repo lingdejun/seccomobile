@@ -9,94 +9,321 @@
         @click-left="$router.back(-1)"
       />
     </div>
-    <div style="padding:0 10px 30px 10px">
-      <van-search v-model="value" shape="round" left-icon="-search-s" placeholder="请输入搜索关键词" />
-      <div style="">
-        <van-row type="flex" justify="space-around" class="row-round">
-          <van-col span="6" class="col-round">2</van-col>
-          <van-col span="6" class="col-round">100</van-col>
-          <van-col span="6" class="col-round">30</van-col>
+    <div style="padding:0px 24px 46px 24px;">
+      <van-form v-if="active===0" ref="detailForm" v-model="form">
+        <van-row>
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">预约日期</span>
         </van-row>
-        <van-row type="flex" justify="space-around" class="row-round">
-          <van-col span="6" class="col-round2">预约记录</van-col>
-          <van-col span="6" class="col-round2">历史记录</van-col>
-          <van-col span="6" class="col-round2">VIP记录</van-col>
+        <van-row class="time-row">
+          <van-field
+            v-model="form.AppointmentDate"
+            left-icon="rili-s"
+            clickable
+            name="AppointmentDate"
+            :rules="[{ required: true, message: '请选择日期' }]"
+            @click="showCalendar = true"
+          />
+          <van-calendar v-model="showCalendar" :min-date="minDate" :max-date="maxDate" @confirm="onConfirm" />
         </van-row>
-      </div>
-      <van-divider />
-      <h3 style="margin-left:12px">预约记录</h3>
-      <!-- <div v-for="(item, index) in bookList" :key="index">
-        <book-list :book="item" />
-        <book-list :book="item" />
-        <book-list :book="item" />
-      </div> -->
-      <book-detail />
-      <person-detail />
-      <car-detail />
-      <van-row type="flex" justify="center">
-        <van-button type="info" style="border-radius:8px;width:70%" block @click="to">我要预约</van-button>
-      </van-row>
-      <van-row type="flex" justify="center" style="margin-top:15px">
-        <van-button type="info" plain style="border-radius:8px;width:70%" block @click="vipto">VIP 预约</van-button>
+        <van-row style="margin-top:10px">
+          <span style="margin-left:5px;color: #9393aa;">预计到达时间</span>
+        </van-row>
+        <van-row class="time-row">
+          <van-field
+            v-model="form.ArriveTime"
+            left-icon="shijian"
+            clickable
+            readonly
+            name="ArriveTime"
+            :rules="[{ required: true, message: '请选择时间' }]"
+            @click="showArriveTimePicker = true"
+          />
+          <van-popup v-model="showArriveTimePicker" position="bottom">
+            <van-datetime-picker
+              type="time"
+              @confirm="onArriveTimeConfirm"
+              @cancel="showArriveTimePicker = false"
+            />
+          </van-popup>
+        </van-row>
+        <van-row style="margin-top:10px">
+          <span style="margin-left:5px;color: #9393aa;">预计离厂时间</span>
+        </van-row>
+        <van-row class="time-row">
+          <van-field
+            v-model="form.LeaveTime"
+            left-icon="shijian"
+            clickable
+            readonly
+            name="LeaveTime"
+            :rules="[{ required: true, message: '请选择时间' }]"
+            @click="showLeaveTimePicker = true"
+          />
+          <van-popup v-model="showLeaveTimePicker" position="bottom">
+            <van-datetime-picker
+              type="time"
+              @confirm="onLeaveTimeConfirm"
+              @cancel="showLeaveTimePicker = false"
+            />
+          </van-popup>
+        </van-row>
+        <van-row style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">接待人姓名</span>
+        </van-row>
+        <van-row class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="form.ReceiverName"
+            right-icon="search-s"
+            name="ReceiverName"
+            :rules="[{ required: true, message: '请输入接待人姓名' }]"
+            @click-right-icon="receiverNameSearch"
+          />
+          <van-popup v-model="showReceiverName" round position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="receiverNameList"
+              @cancel="showReceiverName = false"
+              @confirm="onReceiverNameConfirm"
+            />
+          </van-popup>
+        </van-row>
+        <van-row style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">访问事由</span>
+        </van-row>
+        <van-row class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="reason"
+            readonly
+            :rules="[{ required: true, message: '请选择事由' }]"
+            @click="showReason = true"
+          />
+          <van-popup v-model="showReason" round position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="reasonList"
+              value-key="Key"
+              @cancel="showReason = false"
+              @confirm="onReasonConfirm"
+            />
+          </van-popup>
+        </van-row>
+        <van-row style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">VIP人数</span>
+        </van-row>
+        <van-row class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="form.VipAmount"
+            name="ReceiverName"
+            type="number"
+            :rules="[{ required: true, message: '请输入VIP人数' }]"
+          />
+        </van-row>
+        <van-row style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">访问区域</span>
+        </van-row>
+        <van-row class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="area"
+            readonly
+            :rules="[{ required: true, message: '请选择区域' }]"
+            @click="showArea = true"
+          />
+          <van-popup v-model="showArea" round position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="areaList"
+              value-key="Key"
+              @cancel="showArea = false"
+              @confirm="onAreaConfirm"
+            />
+          </van-popup>
+        </van-row>
+        <van-row style="margin-top:10px">
+          <span v-if="requireRemark===true" style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">备注</span>
+        </van-row>
+        <van-row class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="form.Remark"
+            rows="2"
+            autosize
+            type="textarea"
+            maxlength="50"
+            show-word-limit
+            :error-message="remarkErrMessgae"
+            @blur="checkRemark"
+          />
+        </van-row>
+      </van-form>
+
+      <van-row type="flex" justify="center" style="margin-top:20px">
+        <van-button type="info" style="margin-left:20px;border-radius:8px;width:70%" block @click="sub">提交</van-button>
       </van-row>
     </div>
   </div>
 </template>
 
 <script>
-// import bookList from '@/components/childcomponents/booklist'
-import bookDetail from '@/components/childcomponents/bookdetail'
-import personDetail from '@/components/childcomponents/persondetail'
-import carDetail from '@/components/childcomponents/cardetail'
+// import VueStep from '@/componentsutils/vue-step'
+import { getAreas, getReasons, getIdTypes, getReceiveName } from '@/api/controller'
+import { subBook } from '@/api/book'
+
 export default {
   name: 'SubVipBook',
-  components: {
-    // bookList
-    bookDetail,
-    personDetail,
-    carDetail
-  },
   data() {
     return {
-      value: '',
-      bookList: []
+      active: 0,
+      remarkErrMessgae: '',
+      requireRemark: false,
+      checkDetailFormFlag: false,
+      showCalendar: false,
+      showArea: false,
+      showReason: false,
+      showReceiverName: false,
+      showArriveTimePicker: false,
+      showLeaveTimePicker: false,
+      minDate: '',
+      maxDate: '',
+      area: '',
+      reason: '',
+      form: {
+        Category: '2',
+        AppointmentDate: '',
+        ArriveTime: '',
+        LeaveTime: '',
+        ReceiverName: '',
+        Area: '',
+        VipReason: '',
+        VipAmount: '',
+        Remark: ''
+      },
+      areaList: [],
+      reasonList: [],
+      receiverNameList: []
     }
   },
+  created() {
+    const now2 = new Date()
+    console.log(now2.getFullYear() + '-' + (now2.getMonth() + 1) + '-' + now2.getDate())
+    this.minDate = new Date(now2.getFullYear(), now2.getMonth(), now2.getDate())
+    console.log(this.minDate.getFullYear() + '-' + (this.minDate.getMonth() + 1) + '-' + this.minDate.getDate())
+    this.maxDate = new Date(now2.getFullYear() + 1, now2.getMonth(), now2.getDate())
+    console.log(this.maxDate.getFullYear() + '-' + (this.maxDate.getMonth() + 1) + '-' + this.maxDate.getDate())
+    getAreas().then(response => {
+      this.areaList = response.Data
+    })
+    getReasons().then(response => {
+      this.reasonList = response.Data
+    })
+    getIdTypes().then(response => {
+      this.idTypeList = response.Data
+    })
+  },
   methods: {
-    to() {
-      this.$router.path('/subbook')
+    receiverNameSearch() {
+      const data = {
+        name: this.form.ReceiverName
+      }
+      getReceiveName(data).then(response => {
+        this.receiverNameList = response.Data
+        this.showReceiverName = true
+      })
     },
-    vipto() {
-      this.$router.path('/vipsubbook')
+    checkRemark() {
+      if (this.requireRemark && this.form.Remark === '') {
+        this.remarkErrMessgae = '请填写备注'
+      } else {
+        this.remarkErrMessgae = ''
+      }
+    },
+    onConfirm(date) {
+      this.form.AppointmentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      this.showCalendar = false
+    },
+    onReceiverNameConfirm(data) {
+      this.form.ReceiverName = data
+      this.showReceiverName = false
+    },
+    onArriveTimeConfirm(time) {
+      this.form.ArriveTime = time
+      this.showArriveTimePicker = false
+    },
+    onLeaveTimeConfirm(time) {
+      this.form.LeaveTime = time
+      this.showLeaveTimePicker = false
+    },
+    onAreaConfirm(data) {
+      this.area = data.Key
+      this.form.Area = data.Value
+      this.showArea = false
+      console.log(data)
+    },
+    onReasonConfirm(data) {
+      this.reason = data.Key
+      this.form.Reason = data.Key
+      this.showReason = false
+      // const reason = this.reasonList.filter(item => {
+      //   return item.Key === data.Key
+      // })
+      this.requireRemark = data.RemarkRequired === 1
+      console.log(this.requireRemark)
+      console.log(data)
+    },
+    async checkDetailForm() {
+      if (this.requireRemark && this.form.Remark === '') {
+        this.remarkErrMessgae = '请填写备注'
+        this.$toast.fail('预约信息有误')
+        return
+      }
+      await this.$refs['detailForm'].validate().then(data => {
+        console.log(data)
+        this.checkDetailFormFlag = true
+        console.log('succ')
+      }).catch(err => {
+        console.log('err')
+        console.log(err)
+        this.$toast.fail('预约信息有误')
+      })
+      console.log('checkDetailForm')
+    },
+    sub() {
+      const data = {
+        AppointmentInfo: this.form
+      }
+      subBook(data).then(response => {
+        this.$toast({
+          message: '提交成功',
+          type: 'success'
+        })
+      })
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
 .navbar{
-  background-color: #f8f9f9;
+  background-color: #fafafa;
+  z-index: 2;
 }
-.van-search{
-  background-color:transparent;
+.van-steps{
+  background-color: transparent;
 }
-.van-search__content{
-  background-color: white
+/deep/ .van-step--horizontal .van-step__circle-container{
+  padding: 5px;
+  border-radius: 100px;
 }
-.col-round{
-  padding: 20px;
-  border-radius: 30px;
-  background-color: #3d87ee;
-  width: 20%;
-  font-size: larger;
-  text-align: center;
-  color: white;
-  font-weight: bold;
+.time-row .van-cell{
+  background-color: transparent;
+  border-bottom: 1px solid #dadbdb;
+  padding: 10px 0px;
 }
-.col-round2{
-  text-align: center;
+
+.round-row .van-cell{
+  background-color: transparent;
+  border: 1px solid #dadbdb;
+  border-radius: 12px;
+  line-height: unset;
 }
-.row-round{
-  margin-top: 15px;
-}
+
 </style>

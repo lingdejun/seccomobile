@@ -4,19 +4,20 @@
       <div class="ph-item">
         <div class="ph-col-12">
           <div class="ph-row">
-            <div class="ph-col-4"><van-icon name="rili-s" /><span style="margin-left:5px">{{ book.Company }}</span></div>
+            <div class="ph-col-4"><van-icon name="rili-s" /><span style="margin-left:5px">{{ book.AppointmentDate }}</span></div>
             <div class="ph-col-2 empty" />
-            <div class="ph-col-6">{{ book.Company }}</div>
+            <div class="ph-col-6">{{ book.Area }}</div>
           </div>
         </div>
         <div class="ph-col-8">
           <div class="ph-row">
-            <div class="ph-col-12 row-item">接待人：<span>{{ book.Company }}</span></div>
-            <div class="ph-col-12 row-item">访&emsp;客：<span>{{ book.Company }}</span></div>
+            <div class="ph-col-12 row-item">{{ book.Id }}接待人：<span>{{ book.ReceiverName }}</span></div>
+            <div class="ph-col-12 row-item">访&emsp;客：<span>{{ book.VisitorName }}</span></div>
           </div>
         </div>
         <div class="ph-col-2">
           <div class="ph-avatar" />
+          <div style="text-align:center">{{ book.StateText }}</div>
         </div>
         <div class="ph-col-12">
           <div class="ph-row">
@@ -83,5 +84,8 @@ export default {
 .company{
   font-size: smaller;
   color: #9393aa;
+}
+.ph-avatar{
+  margin-bottom: 2px;
 }
 </style>
