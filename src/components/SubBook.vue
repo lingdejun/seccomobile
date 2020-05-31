@@ -117,7 +117,6 @@
           <van-field
             v-model="form.ApplicantEmail"
             name="ApplicantEmail"
-            :rules="[{ validator: emailValid, message: '邮箱格式错误' }]"
           />
         </van-row>
         <van-row style="margin-top:10px">
@@ -187,14 +186,14 @@
       </van-form>
       <van-row v-if="active===1">
         <h3>人员信息</h3>
-        <person-detail v-if="persons.length > 0" :persons="persons" :from="from" />
+        <persondetail-simple v-if="persons.length > 0" :persons="persons" :from="from" />
         <van-row type="flex" justify="center" style="margin-top:10px">
           <van-button icon="renyuan" type="info" style="border-radius:8px;width:70%" block @click="personFormVisable=true">添加人员</van-button>
         </van-row>
       </van-row>
       <van-row v-if="active===2">
         <h3>车辆信息</h3>
-        <car-detail v-if="cars.length > 0" :cars="cars" :from="from" />
+        <cardetail-simple v-if="cars.length > 0" :cars="cars" :from="from" />
         <van-row type="flex" justify="center" style="margin-top:10px">
           <van-button icon="che-s" type="info" style="border-radius:8px;width:70%" block @click="carFormVisable=true">添加车辆</van-button>
         </van-row>
@@ -302,6 +301,131 @@
             <van-radio name="0">否</van-radio>
           </van-radio-group>
         </van-row>
+        <van-row v-if="healthNeed===1" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">人员类型</span>
+        </van-row>
+        <van-row v-if="healthNeed===1" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthCategory"
+            readonly
+            :rules="[{ required: true, message: '请选择人员类型' }]"
+            @click="showPersonType = true"
+          />
+          <van-popup v-model="showPersonType" round position="bottom">
+            <van-picker
+              show-toolbar
+              :columns="healthPersonTypeList"
+              value-key="name"
+              @cancel="showPersonType = false"
+              @confirm="onPersonTypeConfirm"
+            />
+          </van-popup>
+        </van-row>
+        <van-row v-if="healthNeed===1" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">生日</span>
+        </van-row>
+        <van-row v-if="healthNeed===1" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthBirthday"
+            left-icon="rili-s"
+            clickable
+            name=""
+            :rules="[{ required: true, message: '请选择生日' }]"
+            @click="showBirth = true"
+          />
+          <van-calendar v-model="showBirth" @confirm="onBirthConfirm" />
+        </van-row>
+        <van-row v-if="healthNeed===1" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">住址</span>
+        </van-row>
+        <van-row v-if="healthNeed===1" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthAddress"
+            :rules="[{ required: true, message: '请输入住址' }]"
+          />
+        </van-row>
+        <van-row v-if="healthNeed===1" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">近14天是否离沪外出</span>
+        </van-row>
+        <van-row v-if="healthNeed===1" class="round-row" style="margin-top:10px">
+          <van-radio-group v-model="healthHasLeave" direction="horizontal">
+            <van-radio name="1">是</van-radio>
+            <van-radio name="0">否</van-radio>
+          </van-radio-group>
+        </van-row>
+
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">外出地点省市或境外国家</span>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthDestination"
+            :error-message="errhealthDestinationMsg"
+          />
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">外出时间</span>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthLeaveTime"
+            left-icon="rili-s"
+            clickable
+            name=""
+            :error-message="errhealthLeaveTimeMsg"
+            @click="showhealthLeaveTime = true"
+          />
+          <van-calendar v-model="showhealthLeaveTime" @confirm="onHealthLeaveTimeConfirm" />
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">返沪时间</span>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthReturnTime"
+            left-icon="rili-s"
+            clickable
+            name=""
+            :error-message="errhealthReturnTimeMsg"
+            @click="showhealthReturnTime = true"
+          />
+          <van-calendar v-model="showhealthReturnTime" @confirm="onHealthReturnTimeConfirm" />
+        </van-row>
+
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">是否疫情重点地区返沪</span>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" class="round-row" style="margin-top:10px">
+          <van-radio-group v-model="healthIsHit" direction="horizontal">
+            <van-radio name="1">是</van-radio>
+            <van-radio name="0">否</van-radio>
+          </van-radio-group>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">居家/集中隔离</span>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" class="round-row" style="margin-top:10px">
+          <van-radio-group v-model="healthIsolation" direction="horizontal">
+            <van-radio name="1">居家隔离</van-radio>
+            <van-radio name="2">集中隔离</van-radio>
+          </van-radio-group>
+        </van-row>
+
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" style="margin-top:10px">
+          <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">隔离观察解除时间</span>
+        </van-row>
+        <van-row v-if="healthNeed===1 && healthHasLeave==='1'" class="round-row" style="margin-top:10px">
+          <van-field
+            v-model="healthRelieveTime"
+            left-icon="rili-s"
+            clickable
+            name=""
+            :error-message="errhealthRelieveTimeMsg"
+            @click="showhealthRelieveTime= true"
+          />
+          <van-calendar v-model="showhealthRelieveTime" @confirm="onHealthRelieveTimeConfirm" />
+        </van-row>
+
         <van-row type="flex" justify="center" style="margin-top:20px">
           <van-button type="default" plain style="border-radius:8px;width:40%" block @click="personFormCancel">取消</van-button>
           <van-button type="info" plain style="margin-left:20px;border-radius:8px;width:40%" block @click="onBookPersonFormSubmit">保存</van-button>
@@ -349,22 +473,26 @@ import { getAreas, getReasons, getIdTypes, getReceiveName, checkReceiveEmail, ge
 import { blackvalid } from '@/api/black'
 import { subBook } from '@/api/book'
 import bookDetail from '@/components/childcomponents/bookdetail'
-import personDetail from '@/components/childcomponents/persondetail'
-import carDetail from '@/components/childcomponents/cardetail'
+import persondetailSimple from '@/components/childcomponents/persondetailsimple'
+import cardetailSimple from '@/components/childcomponents/cardetailsimple'
 export default {
   name: 'SubBook',
   components: {
     bookDetail,
-    personDetail,
-    carDetail
+    persondetailSimple,
+    cardetailSimple
   },
   data() {
     return {
-      active: 0,
+      active: 2,
       value: '',
       from: 'sub',
       receiveEmailErrMessage: '',
       remarkErrMessgae: '',
+      errhealthDestinationMsg: '',
+      errhealthLeaveTimeMsg: '',
+      errhealthReturnTimeMsg: '',
+      errhealthRelieveTimeMsg: '',
       requireRemark: false,
       checkDetailFormFlag: false,
       showCalendar: false,
@@ -375,6 +503,11 @@ export default {
       showReceiverName: false,
       showArriveTimePicker: false,
       showLeaveTimePicker: false,
+      showPersonType: false,
+      showBirth: false,
+      showhealthLeaveTime: false,
+      showhealthReturnTime: false,
+      showhealthRelieveTime: false,
       minDate: '',
       maxDate: '',
       area: '',
@@ -394,7 +527,7 @@ export default {
         Remark: ''
       },
       personform: {
-        Company: '1',
+        Company: '',
         Name: '',
         Gender: '1',
         Mobile: '',
@@ -414,13 +547,36 @@ export default {
       nationList: ['中国', '美国'],
       idTypeList: [],
       receiverNameList: [],
+      healthPersonTypeList: [
+        {
+          id: '1',
+          name: '企业员工'
+        },
+        {
+          id: '2',
+          name: '承包商'
+        },
+        {
+          id: '3',
+          name: '供货商'
+        },
+        {
+          id: '4',
+          name: '访客'
+        },
+        {
+          id: '5',
+          name: '临时工作'
+        }
+      ],
       personFormVisable: false,
       carFormVisable: false,
       healthNeed: 0,
       healthCategory: '',
+      healthCategoryId: '',
       healthBirthday: '',
       healthAddress: '',
-      healthHasLeave: '',
+      healthHasLeave: '1',
       healthDestination: '',
       healthLeaveTime: '',
       healthReturnTime: '',
@@ -504,6 +660,17 @@ export default {
         CIAVehicle: '0'
       }
       this.idType = ''
+      this.healthCategory = ''
+      this.healthCategoryId = ''
+      this.healthBirthday = ''
+      this.healthAddress = ''
+      this.healthHasLeave = '1'
+      this.healthDestination = ''
+      this.healthLeaveTime = ''
+      this.healthReturnTime = ''
+      this.healthIsHit = ''
+      this.healthIsolation = ''
+      this.healthRelieveTime = ''
     },
     resetCarForm() {
       this.carform = {
@@ -514,6 +681,26 @@ export default {
     onConfirm(date) {
       this.form.AppointmentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
       this.showCalendar = false
+      console.log(this.value)
+    },
+    onBirthConfirm(date) {
+      this.healthBirthday = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      this.showBirth = false
+      console.log(this.value)
+    },
+    onHealthLeaveTimeConfirm(date) {
+      this.healthLeaveTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      this.showhealthLeaveTime = false
+      console.log(this.value)
+    },
+    onHealthReturnTimeConfirm(date) {
+      this.healthReturnTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      this.showhealthReturnTime = false
+      console.log(this.value)
+    },
+    onHealthRelieveTimeConfirm(date) {
+      this.healthRelieveTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+      this.showhealthRelieveTime = false
       console.log(this.value)
     },
     onReceiverNameConfirm(data) {
@@ -550,6 +737,11 @@ export default {
       this.personform.IDType = data.Value
       this.showIdType = false
       console.log(data)
+    },
+    onPersonTypeConfirm(data) {
+      this.healthCategory = data.name
+      this.healthCategoryId = data.id
+      this.showPersonType = false
     },
     perStep() {
       this.personFormVisable = false
@@ -610,6 +802,29 @@ export default {
       console.log('checkDetailForm')
     },
     onBookPersonFormSubmit() {
+      let checkflag = true
+      if (this.healthNeed === 1 && this.healthHasLeave === '1') {
+        if (this.healthDestination === '') {
+          this.errhealthDestinationMsg = '请输入外出地点省市或境外国家'
+          checkflag = false
+        }
+        if (this.healthLeaveTime === '') {
+          this.errhealthLeaveTimeMsg = '请选择外出时间'
+          checkflag = false
+        }
+        if (this.healthReturnTime === '') {
+          this.errhealthReturnTimeMsg = '请选择返沪时间'
+          checkflag = false
+        }
+        if (this.healthRelieveTime === '') {
+          this.errhealthRelieveTimeMsg = '请选择隔离观察解除时间'
+          checkflag = false
+        }
+      }
+      if (!checkflag) {
+        this.$toast.fail('人员信息有误')
+      }
+
       this.$refs['personForm'].validate().then(data => {
         console.log('success')
         const params = {
@@ -666,6 +881,7 @@ export default {
           message: '提交成功',
           type: 'success'
         })
+        this.$router.push('/book')
       })
     }
   }

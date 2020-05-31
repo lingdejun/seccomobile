@@ -9,7 +9,7 @@
         @click-left="$router.back(-1)"
       />
     </div>
-    <div style="padding:0 10px 30px 10px">
+    <div style="padding:15px 10px 30px 10px">
       <vipbook-detail :book="book" />
     </div>
   </div>
@@ -19,7 +19,7 @@
 import { getVipDetail } from '@/api/book'
 import vipbookDetail from '@/components/childcomponents/vipbookdetail'
 export default {
-  name: 'AppointmentDetail',
+  name: 'VipDetail',
   components: {
     vipbookDetail
   },

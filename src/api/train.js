@@ -15,3 +15,11 @@ export function getTrain(data) {
     data
   })
 }
+
+export function submit(data) {
+  return request({
+    url: '/train/submit',
+    method: 'post',
+    data
+  })
+}

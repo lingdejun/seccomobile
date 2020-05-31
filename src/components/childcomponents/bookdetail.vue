@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="ph-item">
-        <div class="ph-col-12 pdright0">
+        <div class="ph-col-12 pdright0 pdleft0">
           <div class="ph-row mgtop10">
-            <div class="ph-col-4"><van-icon color="#1296db" name="rili-s" /><span style="margin-left:10px;font-size:16px;font-weight:800">预约记录</span></div>
+            <div class="ph-col-4"><van-icon color="#1296db" name="rili-s" /><span style="margin-left:10px;font-family: PingFangSC-Semibold, sans-serif;font-size:17px;font-weight:600;color:#353535">预约记录</span></div>
             <div class="ph-col-8 empty" />
           </div>
           <div class="ph-row pdleft10">
@@ -100,6 +100,9 @@ export default {
 .mgtop10{
   margin-top: 10px;
 }
+.pdleft0{
+  padding-left: 0px;
+}
 .pdleft10{
   padding-left: 10px;
 }
@@ -118,11 +121,16 @@ export default {
 }
 .text-left{
   text-align: left;
+  font-family: PingFangSC-Medium, sans-serif;
+  font-size:12px
 }
 .text-right{
   text-align: right;
+  font-family: PingFangSC-Medium, sans-serif;
+  color:#344356;
+  font-size:12px
 }
 .text-left-color{
-  color: #9393aa;
+  color: #9393AA;
 }
 </style>

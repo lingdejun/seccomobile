@@ -10,7 +10,7 @@
         @click-left="$router.back(-1)"
       />
     </div>
-    <van-search v-model="value" shape="round" left-icon="search-s" placeholder="请输入搜索关键词" />
+    <van-search v-model="value" shape="round" left-icon="search-s" placeholder="请输入搜索关键词" @blur="search" />
     <div style="padding:0 10px 30px 10px;">
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
         <van-list
@@ -67,6 +67,11 @@ export default {
     // document.getElementsByClassName('content')[0].scrollTop = 0
   },
   methods: {
+    search() {
+      this.query.SearchText = this.value
+      this.query.PageIndex = 1
+      this.onLoad()
+    },
     async onLoad() {
       if (this.refreshing) {
         this.bookList = []
@@ -98,7 +103,7 @@ export default {
       this.onLoad()
     },
     toDetail(id) {
-      this.$router.push({ name: 'AppointmentDetail', params: { id: id }})
+      this.$router.push({ name: 'VipDetail', params: { id: id }})
       // this.$router.push('/appointmentdetail')
     }
   }

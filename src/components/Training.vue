@@ -12,9 +12,6 @@
     <div style="padding:10px 24px 20px 24px;">
       <!-- <question-list :questions="question.QuestionList" /> -->
       <list :questions="question.QuestionList" />
-      <van-row type="flex" justify="center" style="margin-top:20px">
-        <van-button type="info" style="margin-left:20px;border-radius:8px;width:70%" block @click="sub">进入培训</van-button>
-      </van-row>
     </div>
   </div>
 </template>

@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="ph-item">
-        <div class="ph-col-12 pdright0">
+        <div class="ph-col-12 pdright0" style="padding-left:0px">
           <div class="ph-row mgtop10">
-            <div class="ph-col-4"><van-icon color="#1296db" name="renyuan1-s" /><span style="margin-left:10px;font-size:16px;font-weight:800">人员信息</span></div>
+            <div class="ph-col-4"><van-icon color="#1296db" name="renyuan1-s" /><span style="margin-left:10px;font-family: PingFangSC-Semibold, sans-serif;font-size:17px;font-weight:600;color:#353535">人员信息</span></div>
             <div class="ph-col-8 empty" />
           </div>
           <div v-for="(item,index) in persons" :key="index">
@@ -27,22 +27,22 @@
               <div class="ph-col-6 row-item text-right">{{ item.Mobile }}</div>
             </div>
             <div v-if="from !=='sub'" class="ph-row pdleft10">
-              <div class="ph-col-6 row-item text-left text-left-color">证件号</div>
+              <div class="ph-col-6 row-item text-left text-left-color">证件号码</div>
               <div class="ph-col-6 row-item text-right">{{ item.IDNumber }}</div>
             </div>
             <div v-if="from ==='sub'" class="ph-row pdleft10">
-              <div class="ph-col-2 row-item text-left text-left-color">访客单位</div>
-              <div class="ph-col-8 row-item text-left" style="padding-left:20px">{{ item.Company }}</div>
+              <div class="row-item text-left text-left-color">访客单位</div>
+              <div class="ph-col-6 row-item text-left" style="padding-left:20px">{{ item.Company }}</div>
               <div class="ph-col-2 row-item text-right" @click="del(index)"><van-icon name="shanchu" /></div>
             </div>
             <div v-if="from ==='sub'" class="ph-row pdleft10">
-              <div class="ph-col-2 row-item text-left text-left-color">联系电话</div>
-              <div class="ph-col-8 row-item text-left" style="padding-left:20px">{{ item.Mobile }}</div>
+              <div class="row-item text-left text-left-color">联系电话</div>
+              <div class="ph-col-6 row-item text-left" style="padding-left:20px">{{ item.Mobile }}</div>
               <div class="ph-col-2 empty" />
             </div>
             <div v-if="from ==='sub'" class="ph-row pdleft10">
-              <div class="ph-col-2 row-item text-left text-left-color">证件号</div>
-              <div class="ph-col-8 row-item text-left" style="padding-left:20px">{{ item.IDNumber }}</div>
+              <div class="row-item text-left text-left-color">证件号码</div>
+              <div class="ph-col-6 row-item text-left" style="padding-left:20px">{{ item.IDNumber }}</div>
               <div class="ph-col-2 empty" />
             </div>
           </div>

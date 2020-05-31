@@ -9,8 +9,12 @@
         @click-left="$router.back(-1)"
       />
     </div>
-    <div style="padding:0 10px 30px 10px">
-      <van-search v-model="value" shape="round" left-icon="search-s" placeholder="请输入搜索关键词" />
+    <div style="padding:0 24px 30px 24px">
+      <van-search v-model="value" shape="round" left-icon="search-s" placeholder="请输入搜索关键词" @blur="tabsearch" />
+      <div style="margin-top:30px;margin-bottom:24px">
+        <span style="font-family: PingFangSC-Semibold, sans-serif;font-size:17px;font-weight:600">预约记录</span>
+        <span style="font-family: PingFangSC-Semibold, sans-serif;margin-left:10px;color:#9393AA;font-size:15px;font-weight:600">{{ total }}</span>
+      </div>
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
         <van-list
           v-model="loading"
@@ -50,6 +54,7 @@ export default {
       loading: false,
       finished: false,
       refreshing: false,
+      total: 0,
       query: {
         SearchText: '',
         State: '',
@@ -65,6 +70,11 @@ export default {
     // document.getElementsByClassName('content')[0].scrollTop = 0
   },
   methods: {
+    tabsearch() {
+      this.query.SearchText = this.value
+      this.query.PageIndex = 1
+      this.onLoad()
+    },
     async onLoad() {
       if (this.refreshing) {
         this.bookList = []
@@ -75,6 +85,7 @@ export default {
         this.bookList = [...this.bookList, ...res.Data.Items]
       } else {
         this.bookList = res.Data.Items
+        this.total = res.Data.TotalReadCount
       }
       // this.bookList.push(res.Data.Items)
       // console.log(JSON.stringify(this.bookList))
@@ -109,6 +120,7 @@ export default {
 }
 .van-search{
   background-color:transparent;
+  padding: 10px 0;
 }
 .van-search__content{
   background-color: white

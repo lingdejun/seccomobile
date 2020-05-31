@@ -30,7 +30,7 @@ export default {
 <style>
 html,body,#app{
   height: 100%;
-  background-color: #f8f9f9;
+  background-color: #FAFAFA;
 }
 
 </style>

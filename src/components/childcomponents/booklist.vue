@@ -2,26 +2,25 @@
   <div class="row">
     <div class="col-12 col-sm-6">
       <div class="ph-item">
-        <div class="ph-col-12">
+        <div class="ph-col-12 pdleft0">
           <div class="ph-row">
-            <div class="ph-col-4"><van-icon name="rili-s" /><span style="margin-left:5px">{{ book.AppointmentDate }}</span></div>
-            <div class="ph-col-2 empty" />
-            <div class="ph-col-6">{{ book.Area }}</div>
+            <div class="ph-col-4" style=""><van-icon name="rili-s" /><span style="margin-left:5px;font-family:Helvetica;font-size:12px;color:#272755">{{ book.AppointmentDate }}</span></div>
+            <div class="ph-col-8" style="font-family: PingFangSC-Medium, sans-serif;color:#9393AA;font-size:14px;font-weight:500;text-align:right">{{ book.Area }}</div>
           </div>
         </div>
-        <div class="ph-col-8">
+        <div class="ph-col-8 pdleft0">
           <div class="ph-row">
-            <div class="ph-col-12 row-item">{{ book.Id }}接待人：<span>{{ book.ReceiverName }}</span></div>
-            <div class="ph-col-12 row-item">访&emsp;客：<span>{{ book.VisitorName }}</span></div>
+            <div class="ph-col-12 row-item" style="font-family: PingFangSC-Semibold, sans-serif;font-size:13px;font-weight:600">接待人：<span>{{ book.ReceiverName }}</span></div>
+            <div class="ph-col-12 row-item" style="font-family: PingFangSC-Semibold, sans-serif;font-size:13px;font-weight:600">访&emsp;客：<span>{{ book.VisitorName }}</span></div>
           </div>
         </div>
         <div class="ph-col-2">
           <div class="ph-avatar" />
           <div style="text-align:center">{{ book.StateText }}</div>
         </div>
-        <div class="ph-col-12">
+        <div class="ph-col-12 pdleft0">
           <div class="ph-row">
-            <div class="ph-col-12 company">访客企业：{{ book.Company }}</div>
+            <div class="ph-col-12 company" style="font-family: PingFangSC-Medium, sans-serif;font-size:13px;color:#9393AA">访客企业：{{ book.Company }}</div>
           </div>
         </div>
       </div>
@@ -66,7 +65,7 @@ export default {
 }
 .ph-item{
   border-radius: 15px;
-  padding: 15px 25px 15px 15px;
+  padding: 15px;
 }
 .ph-item::before{
   background: rgba(0,0,0,0);
@@ -87,5 +86,8 @@ export default {
 }
 .ph-avatar{
   margin-bottom: 2px;
+}
+.pdleft0{
+  padding-left: 0px;
 }
 </style>

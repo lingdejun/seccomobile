@@ -22,62 +22,98 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/book',
       name: 'Book',
-      component: Book
+      component: Book,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/subbook',
       name: 'SubBook',
-      component: SubBook
+      component: SubBook,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/subvipbook',
       name: 'SubVipBook',
-      component: SubVipBook
+      component: SubVipBook,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/appointmentlist',
       name: 'AppointmentList',
-      component: AppointmentList
+      component: AppointmentList,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/appointmentdetail/:id',
       name: 'AppointmentDetail',
-      component: AppointmentDetail
+      component: AppointmentDetail,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/historylist',
       name: 'HistoryList',
-      component: HistoryList
+      component: HistoryList,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/viplist',
       name: 'VipList',
-      component: VipList
+      component: VipList,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/vipdetail/:id',
       name: 'VipDetail',
-      component: VipDetail
+      component: VipDetail,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/train',
       name: 'Train',
-      component: Train
+      component: Train,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/trainresult',
       name: 'TrainResult',
-      component: TrainResult
+      component: TrainResult,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     },
     {
       path: '/training',
       name: 'Training',
-      component: Training
+      component: Training,
+      meta: {
+        content: 'width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0'
+      }
     }
   ]
 })

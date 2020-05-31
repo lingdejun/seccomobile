@@ -92,20 +92,10 @@
         </van-row>
         <van-row class="round-row" style="margin-top:10px">
           <van-field
-            v-model="reason"
+            v-model="form.VipReason"
             readonly
             :rules="[{ required: true, message: '请选择事由' }]"
-            @click="showReason = true"
           />
-          <van-popup v-model="showReason" round position="bottom">
-            <van-picker
-              show-toolbar
-              :columns="reasonList"
-              value-key="Key"
-              @cancel="showReason = false"
-              @confirm="onReasonConfirm"
-            />
-          </van-popup>
         </van-row>
         <van-row style="margin-top:10px">
           <span style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">VIP人数</span>
@@ -139,7 +129,7 @@
           </van-popup>
         </van-row>
         <van-row style="margin-top:10px">
-          <span v-if="requireRemark===true" style="color:red">*</span><span style="margin-left:5px;color: #9393aa;">备注</span>
+          <span style="margin-left:5px;color: #9393aa;">备注</span>
         </van-row>
         <van-row class="round-row" style="margin-top:10px">
           <van-field
@@ -149,15 +139,12 @@
             type="textarea"
             maxlength="50"
             show-word-limit
-            :error-message="remarkErrMessgae"
-            @blur="checkRemark"
           />
         </van-row>
+        <van-row type="flex" justify="center" style="margin-top:20px">
+          <van-button type="info" style="margin-left:20px;border-radius:8px;width:70%" block @click="sub">提交</van-button>
+        </van-row>
       </van-form>
-
-      <van-row type="flex" justify="center" style="margin-top:20px">
-        <van-button type="info" style="margin-left:20px;border-radius:8px;width:70%" block @click="sub">提交</van-button>
-      </van-row>
     </div>
   </div>
 </template>
@@ -172,12 +159,9 @@ export default {
   data() {
     return {
       active: 0,
-      remarkErrMessgae: '',
-      requireRemark: false,
       checkDetailFormFlag: false,
       showCalendar: false,
       showArea: false,
-      showReason: false,
       showReceiverName: false,
       showArriveTimePicker: false,
       showLeaveTimePicker: false,
@@ -192,7 +176,7 @@ export default {
         LeaveTime: '',
         ReceiverName: '',
         Area: '',
-        VipReason: '',
+        VipReason: 'Vip来访',
         VipAmount: '',
         Remark: ''
       },
@@ -228,13 +212,6 @@ export default {
         this.showReceiverName = true
       })
     },
-    checkRemark() {
-      if (this.requireRemark && this.form.Remark === '') {
-        this.remarkErrMessgae = '请填写备注'
-      } else {
-        this.remarkErrMessgae = ''
-      }
-    },
     onConfirm(date) {
       this.form.AppointmentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
       this.showCalendar = false
@@ -257,23 +234,7 @@ export default {
       this.showArea = false
       console.log(data)
     },
-    onReasonConfirm(data) {
-      this.reason = data.Key
-      this.form.Reason = data.Key
-      this.showReason = false
-      // const reason = this.reasonList.filter(item => {
-      //   return item.Key === data.Key
-      // })
-      this.requireRemark = data.RemarkRequired === 1
-      console.log(this.requireRemark)
-      console.log(data)
-    },
     async checkDetailForm() {
-      if (this.requireRemark && this.form.Remark === '') {
-        this.remarkErrMessgae = '请填写备注'
-        this.$toast.fail('预约信息有误')
-        return
-      }
       await this.$refs['detailForm'].validate().then(data => {
         console.log(data)
         this.checkDetailFormFlag = true
@@ -285,7 +246,13 @@ export default {
       })
       console.log('checkDetailForm')
     },
-    sub() {
+    async sub() {
+      await this.checkDetailForm()
+      console.log('checkflag=' + this.checkDetailFormFlag)
+      if (!this.checkDetailFormFlag) {
+        console.log('checkflag2=' + this.checkDetailFormFlag)
+        return
+      }
       const data = {
         AppointmentInfo: this.form
       }

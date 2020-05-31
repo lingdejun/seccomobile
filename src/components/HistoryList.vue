@@ -9,15 +9,15 @@
         @click-left="$router.back(-1)"
       />
     </div>
-    <van-search v-model="value" shape="round" left-icon="search-s" placeholder="请输入搜索关键词" />
+    <van-search v-model="value" shape="round" left-icon="search-s" placeholder="请输入搜索关键词" @blur="tabsearch" />
     <div style="padding:0 10px 30px 10px">
-      <van-row class="btn-row" style="padding:0px 10px">
-        <van-col style="border-top-left-radius: 12px;border-bottom-left-radius: 12px;" span="6">全部</van-col>
-        <van-col span="6">已登记</van-col>
-        <van-col span="6">已失效</van-col>
-        <van-col style="border-top-right-radius: 12px;border-bottom-right-radius: 12px;" span="6">已拒绝</van-col>
+      <van-row class="btn-row">
+        <van-col style="border-top-left-radius: 12px;border-bottom-left-radius: 12px;" :class="active==0?'text-active':'text-default'" span="6" @click="search(0)">全部</van-col>
+        <van-col style="border-left:1px solid #fafafa" :class="active==4?'text-active':'text-default'" span="6" @click="search(4)">已登记</van-col>
+        <van-col style="border-left:1px solid #fafafa" :class="active==5?'text-active':'text-default'" span="6" @click="search(5)">已失效</van-col>
+        <van-col style="border-left:1px solid #fafafa;border-top-right-radius: 12px;border-bottom-right-radius: 12px;" :class="active==3?'text-active':'text-default'" span="6" @click="search(3)">已拒绝</van-col>
       </van-row>
-      <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-pull-refresh v-model="refreshing" style="margin-top:10px" @refresh="onRefresh">
         <van-list
           v-model="loading"
           :finished="finished"
@@ -47,6 +47,7 @@ export default {
   },
   data() {
     return {
+      active: 0,
       value: '',
       bookList: [],
       loading: false,
@@ -67,6 +68,18 @@ export default {
     // document.getElementsByClassName('content')[0].scrollTop = 0
   },
   methods: {
+    tabsearch() {
+      this.query.SearchText = this.value
+      this.query.PageIndex = 1
+      this.onLoad()
+    },
+    search(id) {
+      this.active = id
+      this.query.SearchText = this.value
+      this.query.State = id === 0 ? '' : id
+      this.query.PageIndex = 1
+      this.onLoad()
+    },
     async onLoad() {
       if (this.refreshing) {
         this.bookList = []
@@ -137,5 +150,11 @@ export default {
 }
 .row-round{
   margin-top: 15px;
+}
+.text-active{
+  color: #3d87ee;
+}
+.text-default{
+  color: black;
 }
 </style>
